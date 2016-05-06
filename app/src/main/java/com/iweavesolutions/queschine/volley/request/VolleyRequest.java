@@ -35,8 +35,6 @@ abstract public class VolleyRequest<T> extends Request<T> {
         this.classType = classType;
     }
 
-    public abstract void performJsonUpdate(byte[] responseStream, T response, boolean isGzipped);
-
     @Override
     protected void deliverResponse(T response) {
         if (response != null)
@@ -56,9 +54,17 @@ abstract public class VolleyRequest<T> extends Request<T> {
         return headers != null ? headers : super.getHeaders();
     }
 
+    public void addHeader(String key, String value) {
+        headers.put(key, value);
+    }
+
     @Override
     protected Map<String, String> getPostParams() throws AuthFailureError {
-        return postParams;
+        return postParams != null ? postParams : super.getPostParams();
+    }
+
+    public void addPostParams(String key, String value) {
+        postParams.put(key, value);
     }
 
     @Override
