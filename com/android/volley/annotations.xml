@@ -1,0 +1,6 @@
+<root>
+  <item
+      name='com.android.volley.Request java.util.Map&lt;java.lang.String,java.lang.String&gt; getPostParams()'>
+    <annotation name='java.lang.annotation.Deprecated' />
+  </item>
+</root>
