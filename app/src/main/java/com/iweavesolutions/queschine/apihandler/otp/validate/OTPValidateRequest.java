@@ -1,20 +1,25 @@
 package com.iweavesolutions.queschine.apihandler.otp.validate;
 
+import android.util.Log;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.google.gson.reflect.TypeToken;
-import com.iweavesolutions.queschine.apihandler.otp.request.OTPRequestBO;
+import com.iweavesolutions.queschine.QueschineApplication;
 import com.iweavesolutions.queschine.volley.request.VolleyRequest;
 
 /**
  * Created by bharath.simha on 06/05/16.
  */
 public class OTPValidateRequest extends VolleyRequest<OTPValidateBO> {
-    public OTPValidateRequest(int method, String url, String header, String otpValue, Response.Listener listener, Response.ErrorListener errorListener) {
+
+    OTPValidatePayload otpValidatePayload;
+
+    public OTPValidateRequest(int method, String url, String header, OTPValidatePayload otpValidatePayload, Response.Listener listener, Response.ErrorListener errorListener) {
         super(method, url, new TypeToken<OTPValidateBO>() {
         }.getType(), listener, errorListener);
+        this.otpValidatePayload = otpValidatePayload;
         addHeader("Application-Authorization", "Bearer " + header);
-        addPostParams("reason", "1");
-        addPostParams("otp", otpValue);
     }
 
     @Override
@@ -22,5 +27,10 @@ public class OTPValidateRequest extends VolleyRequest<OTPValidateBO> {
         return "application/x-www-form-urlencoded";
     }
 
-
+    @Override
+    public byte[] getBody() throws AuthFailureError {
+        String configString = QueschineApplication.getGsonInstance().toJson(otpValidatePayload);
+        Log.d("Payload::OTPValdateReq:", configString);
+        return configString.getBytes();
+    }
 }
