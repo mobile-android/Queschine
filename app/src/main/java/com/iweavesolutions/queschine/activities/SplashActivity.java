@@ -1,10 +1,12 @@
 package com.iweavesolutions.queschine.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -13,14 +15,13 @@ import com.iweavesolutions.queschine.utilities.Utils;
 /**
  * Created by bharath.simha on 05/05/16.
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends Activity {
 
     static final int SPLASH_TIME_OUT = 1500;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if (Utils.isNetworkAvailable(getApplicationContext())) {
             new Handler().postDelayed(new Runnable() {
 
