@@ -39,9 +39,6 @@ abstract public class DataHandler<T> {
                     if (error instanceof TimeoutError) {
                         errorReceived(504, -1, "Request Timedout!!");
                     }
-                   /* if(error instanceof SSLError){
-                        errorReceived(999, -1, "Certificate validation Error");
-                    }*/
                     else if (error instanceof NoConnectionError) {
                         errorReceived(-1, -1, "Oops, something went  wrong!");
                     } else if (error.networkResponse != null) {
@@ -49,7 +46,7 @@ abstract public class DataHandler<T> {
                             errorReceived(204, -1, "");
                         } else {
                             Reader jsonReader = ResponseUtils.getJsonReader(error.networkResponse);
-                            ResponseWrapper<T> responseObject = null;
+                            T responseObject = null;
                             try {
                                 if (ctype != null) {
                                     responseObject = QueschineApplication.getGsonInstance().
@@ -57,7 +54,7 @@ abstract public class DataHandler<T> {
 
                                 } else {
                                     responseObject = QueschineApplication.getGsonInstance().
-                                            fromJson(jsonReader, new TypeToken<ResponseWrapper<T>>() {
+                                            fromJson(jsonReader, new TypeToken<Object>() {
                                             }.getType());
                                 }
 
@@ -66,12 +63,7 @@ abstract public class DataHandler<T> {
                             if (responseObject != null) {
                             /*This method is being called only by V3 APIs which expect error resonse code with statusCode 400 not for older api calls in V2*/
                                 //TODO if "com.google.gson.internal.LinkedTreeMap cannot be cast to" exception is coming then you need to satisfy ctype variable in your data handler.
-                                if (responseObject.getResponse() != null && error.networkResponse.statusCode == 400) {
-                                    errorReceived(error.networkResponse.statusCode, responseObject.getErrorCode(), responseObject.getErrorMessage(), responseObject.getResponse());
-//								listner.onResponse(responseObject.getResponse());
-                                } else {
-                                    errorReceived(error.networkResponse.statusCode, responseObject.getErrorCode(), responseObject.getErrorMessage());
-                                }
+                               errorReceived(responseObject);
                             } else {
                                 errorReceived(999, -1, "Oops, something went wrong!");
                             }
@@ -106,6 +98,10 @@ abstract public class DataHandler<T> {
     abstract public void resultReceived(T response, boolean fromDB);
 
     public void errorReceived(int responseCode, int errorCode, String errorMessage) {
+        //nothing to do as of now...
+    }
+
+    public void errorReceived(Object response) {
         //nothing to do as of now...
     }
 

@@ -8,7 +8,6 @@ import android.content.pm.Signature;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.DisplayMetrics;
-import android.view.WindowManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -52,10 +51,10 @@ public class QueschineApplication extends Application {
 
         if (NetworkMonitor.isNetworkFast() == NetworkMonitor.NETWORK_TYPE_SLOW) {
             QSCNLogger.debug("Volley thread pool initialised for slow");
-            mRequestQueue = Volley.newRequestQueue(context);
+            mRequestQueue = Volley.newRequestQueue(QueschineApplication.context);
         } else {
             QSCNLogger.debug("Volley thread pool initialised for fast");
-            mRequestQueue = Volley.newRequestQueue(context);
+            mRequestQueue = Volley.newRequestQueue(QueschineApplication.context);
         }
 
         displayMetrics = QueschineApplication.getAppContext().getResources().getDisplayMetrics();

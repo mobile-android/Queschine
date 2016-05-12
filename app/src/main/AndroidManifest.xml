@@ -3,6 +3,7 @@
     package="com.iweavesolutions.queschine">
 
     <application
+        android:name=".QueschineApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +12,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/AppTheme">
