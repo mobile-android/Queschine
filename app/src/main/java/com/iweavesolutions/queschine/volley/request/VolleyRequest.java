@@ -8,10 +8,10 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.iweavesolutions.queschine.QueschineApplication;
 import com.iweavesolutions.queschine.volley.ResponseUtils;
-import com.iweavesolutions.queschine.volley.ResponseWrapper;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -26,13 +26,14 @@ abstract public class VolleyRequest<T> extends Request<T> {
 
     // testing to check Volley is working or not
     public static String TIMEZONE_API = "http://api.timezonedb.com/?key=9VDCF1OL04M7&zone=Asia/Kolkata&format=json";
-    public static String BASE_API_URL = "iweavesolutions.com/queschine/services/";
+    public static String BASE_API_URL = "http://iweavesolutions.com/queschine/services/";
 
 
     public VolleyRequest(int method, String url, Type classType, Response.Listener listener, Response.ErrorListener errorListener) {
         super(method, url, errorListener);
         this.listner = listener;
         this.classType = classType;
+        headers = new HashMap<>();
     }
 
     @Override
@@ -69,7 +70,6 @@ abstract public class VolleyRequest<T> extends Request<T> {
 
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse networkResponse) {
-        ResponseWrapper<T> responseObject = null;
         Gson gson = QueschineApplication.getGsonInstance();
 
         Reader jsonReader = ResponseUtils.getJsonReader(networkResponse);
