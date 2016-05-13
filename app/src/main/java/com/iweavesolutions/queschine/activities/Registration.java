@@ -25,9 +25,6 @@ import com.iweavesolutions.queschine.utilities.Utils;
 public class Registration extends AppCompatActivity {
 
     private AppCompatEditText name, email, password, retypePassword, mobile;
-    private Button submit;
-    private TextView signIn;
-    private ScrollView scrollView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,8 +33,10 @@ public class Registration extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
         onInit();
     }
+
     private void onInit() {
-        scrollView = (ScrollView)findViewById(R.id.scrollView);
+
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
         KeyBoardUtil keyBoardUtil = new KeyBoardUtil(Registration.this, scrollView);
         keyBoardUtil.enable();
         name = (AppCompatEditText) findViewById(R.id.nameRegistration);
@@ -45,10 +44,11 @@ public class Registration extends AppCompatActivity {
         password = (AppCompatEditText) findViewById(R.id.passwordRegistration);
         retypePassword = (AppCompatEditText) findViewById(R.id.repasswordRegistration);
         mobile = (AppCompatEditText) findViewById(R.id.mobileRegistration);
-        signIn = (TextView)findViewById(R.id.signIn);
+        TextView signIn = (TextView) findViewById(R.id.signIn);
 
-        submit = (Button) findViewById(R.id.submit);
+        Button submit = (Button) findViewById(R.id.submit);
 
+        assert submit != null;
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,10 +69,8 @@ public class Registration extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "re-password should not empty", Toast.LENGTH_LONG).show();
                 } else if (!passwordValue.equalsIgnoreCase(retypePasswordValue)) {
                     Toast.makeText(getApplicationContext(), "both passwords should match", Toast.LENGTH_LONG).show();
-                } else if (Utils.isNullOrEmpty(mobileValue)) {
-                    Toast.makeText(getApplicationContext(), "mobile number should not empty", Toast.LENGTH_LONG).show();
-                } else if (mobileValue.length() != 10) {
-                    Toast.makeText(getApplicationContext(), "mobile number length should be 10", Toast.LENGTH_LONG).show();
+                } else if (Utils.isValidMobile(mobileValue)) {
+                    Toast.makeText(getApplicationContext(), "Enter a valid mobile number", Toast.LENGTH_LONG).show();
                 } else {
                     RegistrationPayload registrationPayload = new RegistrationPayload();
                     registrationPayload.setName(nameValue);
@@ -83,10 +81,11 @@ public class Registration extends AppCompatActivity {
                 }
             }
         });
+        assert signIn != null;
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                startActivity(new Intent(Registration.this, LoginActivity.class));
                 finish();
             }
         });

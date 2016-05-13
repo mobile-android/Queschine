@@ -4,5 +4,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="login"><u>Already a User? Sign In !!</u></string>
+    <string name="signup"><u>New to Queschine? Sign Up here!</u></string>
+
+
     <string name="action_settings">Settings</string>
 </resources>

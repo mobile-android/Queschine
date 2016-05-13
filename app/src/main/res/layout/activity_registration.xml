@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/scrollView"
-    android:background="@drawable/signup_bg">
+    android:background="@drawable/generic_bg">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -101,7 +101,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="Already a User?"
+                    android:text="@string/login"
                     android:id="@+id/signIn"
                     android:textColor="@android:color/white" />
 
