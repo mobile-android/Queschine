@@ -1,6 +1,7 @@
 package com.iweavesolutions.queschine.volley;
 
 import com.android.volley.NoConnectionError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
@@ -23,7 +24,7 @@ abstract public class DataHandler<T> {
     protected Response.ErrorListener errorListner;
     protected Response.Listener<T> listner;
 
-    protected com.android.volley.Request<T> request;
+    protected Request<T> request;
 
     public Type ctype;
 

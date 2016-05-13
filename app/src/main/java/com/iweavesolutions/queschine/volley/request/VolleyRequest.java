@@ -25,8 +25,8 @@ abstract public class VolleyRequest<T> extends Request<T> {
     private final Type classType;
 
     // testing to check Volley is working or not
-    public static String TIMEZONE_API = "http://api.timezonedb.com/?key=9VDCF1OL04M7&zone=Asia/Kolkata&format=json";
-    public static String BASE_API_URL = "http://iweavesolutions.com/queschine/services/";
+    public static final String TIMEZONE_API = "http://api.timezonedb.com/?key=9VDCF1OL04M7&zone=Asia/Kolkata&format=json";
+    public static final String BASE_API_URL = "http://iweavesolutions.com/queschine/services/";
 
 
     public VolleyRequest(int method, String url, Type classType, Response.Listener listener, Response.ErrorListener errorListener) {

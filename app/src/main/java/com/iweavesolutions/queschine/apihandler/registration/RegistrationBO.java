@@ -1,7 +1,5 @@
 package com.iweavesolutions.queschine.apihandler.registration;
 
-import java.util.ArrayList;
-
 /**
  * Created by bharath.simha on 05/05/16.
  */
@@ -9,13 +7,13 @@ public class RegistrationBO {
 
     protected String status;
     protected String message;
-    protected ArrayList<RegistrationAuthTokens> data;
+    protected RegistrationAuthTokens data;
 
-    public ArrayList<RegistrationAuthTokens> getData() {
+    public RegistrationAuthTokens getData() {
         return data;
     }
 
-    public void setData(ArrayList<RegistrationAuthTokens> data) {
+    public void setData(RegistrationAuthTokens data) {
         this.data = data;
     }
 
