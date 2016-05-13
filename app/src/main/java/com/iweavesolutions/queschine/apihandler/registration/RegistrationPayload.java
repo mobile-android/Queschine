@@ -5,10 +5,10 @@ package com.iweavesolutions.queschine.apihandler.registration;
  */
 public class RegistrationPayload {
 
-    protected String name = "Gupta1";
-    protected String emailId = "testingbharathh4@gmail.com";
-    protected String password = "1234561";
-    protected String phoneNumber = "9885600908";
+    protected String name;
+    protected String emailId;
+    protected String password;
+    protected String phoneNumber;
     protected String role = "APPUSER";
     protected String channel = "ANDROID";
 
@@ -17,7 +17,7 @@ public class RegistrationPayload {
     }
 
     public void setName(String name) {
-        this.name = "dadf";
+        this.name = name;
     }
 
     public String getEmailId() {
@@ -25,7 +25,7 @@ public class RegistrationPayload {
     }
 
     public void setEmailId(String emailId) {
-        this.emailId = "asdfgf@gmaail.com";
+        this.emailId = emailId;
     }
 
     public String getPassword() {
@@ -33,7 +33,7 @@ public class RegistrationPayload {
     }
 
     public void setPassword(String password) {
-        this.password = "asdfasd";
+        this.password = password;
     }
 
     public String getPhoneNumber() {
@@ -41,6 +41,6 @@ public class RegistrationPayload {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = "9898980766";
+        this.phoneNumber = phoneNumber;
     }
 }

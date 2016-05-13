@@ -38,8 +38,7 @@ abstract public class DataHandler<T> {
 
                     if (error instanceof TimeoutError) {
                         errorReceived(504, -1, "Request Timedout!!");
-                    }
-                    else if (error instanceof NoConnectionError) {
+                    } else if (error instanceof NoConnectionError) {
                         errorReceived(-1, -1, "Oops, something went  wrong!");
                     } else if (error.networkResponse != null) {
                         if (error.networkResponse.statusCode == 204) {
@@ -63,7 +62,7 @@ abstract public class DataHandler<T> {
                             if (responseObject != null) {
                             /*This method is being called only by V3 APIs which expect error resonse code with statusCode 400 not for older api calls in V2*/
                                 //TODO if "com.google.gson.internal.LinkedTreeMap cannot be cast to" exception is coming then you need to satisfy ctype variable in your data handler.
-                               errorReceived(responseObject);
+                                errorReceived(responseObject);
                             } else {
                                 errorReceived(999, -1, "Oops, something went wrong!");
                             }
@@ -101,7 +100,7 @@ abstract public class DataHandler<T> {
         //nothing to do as of now...
     }
 
-    public void errorReceived(Object response) {
+    public void errorReceived(T response) {
         //nothing to do as of now...
     }
 

@@ -17,9 +17,6 @@ import com.iweavesolutions.queschine.apihandler.registration.RegistrationDataHan
 import com.iweavesolutions.queschine.apihandler.registration.RegistrationPayload;
 import com.iweavesolutions.queschine.utilities.Utils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 /**
  * Created by bharath.simha on 06/05/16.
  */
@@ -47,8 +44,6 @@ public class LogInActivity extends AppCompatActivity {
 
         submit = (Button) findViewById(R.id.submit);
 
-        onRegisterUser(new RegistrationPayload());
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +63,7 @@ public class LogInActivity extends AppCompatActivity {
                 } else if (Utils.isNullOrEmpty(retypePasswordValue)) {
                     Toast.makeText(getApplicationContext(), "re-password should not empty", Toast.LENGTH_LONG).show();
                 } else if (!passwordValue.equalsIgnoreCase(retypePasswordValue)) {
-                    Toast.makeText(getApplicationContext(), "both passwords shuold match", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "both passwords should match", Toast.LENGTH_LONG).show();
                 } else if (Utils.isNullOrEmpty(mobileValue)) {
                     Toast.makeText(getApplicationContext(), "mobile number should not empty", Toast.LENGTH_LONG).show();
                 } else if (mobileValue.length() != 10) {
@@ -86,6 +81,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void onRegisterUser(RegistrationPayload registrationPayload) {
+
         RegistrationDataHandler registrationDataHandler = new RegistrationDataHandler() {
             @Override
             public void resultReceived(RegistrationBO response, boolean fromDB) {
@@ -93,15 +89,8 @@ public class LogInActivity extends AppCompatActivity {
             }
 
             @Override
-            public void errorReceived(Object response) {
-                String message = null;
-                try {
-                    JSONObject jsonObject = new JSONObject((String) response.toString());
-                    message = (String) jsonObject.get("message");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            public void errorReceived(RegistrationBO response) {
+                Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         };
