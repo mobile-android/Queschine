@@ -8,7 +8,7 @@ import com.iweavesolutions.queschine.volley.request.VolleyRequest;
 /**
  * Created by bharath.simha on 06/05/16.
  */
-abstract public class OTPDataHandler extends DataHandler<OTPValidateBO> {
+abstract public class OTPValidateDataHandler extends DataHandler<OTPValidateBO> {
 
     public void onValidateOTP(String extensionURL, String otpValue, String authKey) {
         OTPValidatePayload otpValidatePayload = new OTPValidatePayload();
