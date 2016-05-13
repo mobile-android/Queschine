@@ -1,7 +1,5 @@
 package com.iweavesolutions.queschine.apihandler.brands;
 
-import com.iweavesolutions.queschine.apihandler.categories.CategoriesData;
-
 import java.util.ArrayList;
 
 /**

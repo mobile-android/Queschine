@@ -187,7 +187,7 @@ public class Utils {
         String decodedString = "";
         try {
             decodedString = URLDecoder.decode(text, "UTF-8");
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         String[] split = decodedString.split(delimiter);
@@ -237,7 +237,7 @@ public class Utils {
                 // in case the value obtained is a map or an array,we ignore as we do not know how to add it to suffix.
                 if (val != null) {
                     if (val instanceof String || val instanceof Boolean || val instanceof Integer) {
-                        suffixUri.append(AMPERSAND + key);
+                        suffixUri.append(AMPERSAND).append(key);
                         suffixUri.append(EQUAL_TO);
                         suffixUri.append(val);
                     }

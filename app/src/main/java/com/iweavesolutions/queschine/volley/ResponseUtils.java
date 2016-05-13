@@ -24,7 +24,7 @@ public class ResponseUtils {
             } else {
                 jsonReader = new InputStreamReader(new GZIPInputStream(inputStream));
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return jsonReader;
     }
