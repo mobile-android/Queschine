@@ -1,13 +1,11 @@
 package com.iweavesolutions.queschine.activities;
 
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ScrollView;
@@ -24,7 +22,7 @@ import com.iweavesolutions.queschine.utilities.Utils;
 /**
  * Created by bharath.simha on 06/05/16.
  */
-public class LogInActivity extends AppCompatActivity {
+public class Registration extends AppCompatActivity {
 
     private AppCompatEditText name, email, password, retypePassword, mobile;
     private Button submit;
@@ -40,13 +38,14 @@ public class LogInActivity extends AppCompatActivity {
     }
     private void onInit() {
         scrollView = (ScrollView)findViewById(R.id.scrollView);
-        KeyBoardUtil keyBoardUtil = new KeyBoardUtil(LogInActivity.this, scrollView);
+        KeyBoardUtil keyBoardUtil = new KeyBoardUtil(Registration.this, scrollView);
         keyBoardUtil.enable();
         name = (AppCompatEditText) findViewById(R.id.nameRegistration);
         email = (AppCompatEditText) findViewById(R.id.emailRegistration);
         password = (AppCompatEditText) findViewById(R.id.passwordRegistration);
         retypePassword = (AppCompatEditText) findViewById(R.id.repasswordRegistration);
         mobile = (AppCompatEditText) findViewById(R.id.mobileRegistration);
+        signIn = (TextView)findViewById(R.id.signIn);
 
         submit = (Button) findViewById(R.id.submit);
 
@@ -82,6 +81,13 @@ public class LogInActivity extends AppCompatActivity {
                     registrationPayload.setPhoneNumber(mobileValue);
                     onRegisterUser(registrationPayload);
                 }
+            }
+        });
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                finish();
             }
         });
     }
