@@ -1,7 +1,5 @@
 package com.iweavesolutions.queschine.apihandler.login;
 
-import java.util.ArrayList;
-
 /**
  * Created by bharath.simha on 05/05/16.
  */
@@ -9,7 +7,7 @@ public class LogInBO {
 
     protected String status;
     protected String message;
-    protected ArrayList<LogInAuthTokens> data;
+    protected LogInAuthTokens data;
 
     public String getStatus() {
         return status;
@@ -27,11 +25,11 @@ public class LogInBO {
         this.message = message;
     }
 
-    public ArrayList<LogInAuthTokens> getData() {
+    public LogInAuthTokens getData() {
         return data;
     }
 
-    public void setData(ArrayList<LogInAuthTokens> data) {
+    public void setData(LogInAuthTokens data) {
         this.data = data;
     }
 }
