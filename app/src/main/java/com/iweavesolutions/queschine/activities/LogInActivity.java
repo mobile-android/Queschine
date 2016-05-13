@@ -1,13 +1,16 @@
 package com.iweavesolutions.queschine.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +18,7 @@ import com.iweavesolutions.queschine.R;
 import com.iweavesolutions.queschine.apihandler.registration.RegistrationBO;
 import com.iweavesolutions.queschine.apihandler.registration.RegistrationDataHandler;
 import com.iweavesolutions.queschine.apihandler.registration.RegistrationPayload;
+import com.iweavesolutions.queschine.utilities.KeyBoardUtil;
 import com.iweavesolutions.queschine.utilities.Utils;
 
 /**
@@ -25,17 +29,19 @@ public class LogInActivity extends AppCompatActivity {
     private AppCompatEditText name, email, password, retypePassword, mobile;
     private Button submit;
     private TextView signIn;
+    private ScrollView scrollView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_registration);
         onInit();
     }
-
     private void onInit() {
+        scrollView = (ScrollView)findViewById(R.id.scrollView);
+        KeyBoardUtil keyBoardUtil = new KeyBoardUtil(LogInActivity.this, scrollView);
+        keyBoardUtil.enable();
         name = (AppCompatEditText) findViewById(R.id.nameRegistration);
         email = (AppCompatEditText) findViewById(R.id.emailRegistration);
         password = (AppCompatEditText) findViewById(R.id.passwordRegistration);
