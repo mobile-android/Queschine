@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
  *
  */
 
+@SuppressWarnings("ALL")
 public class KeyBoardUtil {
     private View decorView;
     private View contentView;

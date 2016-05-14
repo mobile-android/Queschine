@@ -8,8 +8,6 @@ import com.google.gson.reflect.TypeToken;
 import com.iweavesolutions.queschine.QueschineApplication;
 import com.iweavesolutions.queschine.volley.request.VolleyRequest;
 
-import java.util.Map;
-
 /**
  * Created by bharath.simha on 06/05/16.
  */

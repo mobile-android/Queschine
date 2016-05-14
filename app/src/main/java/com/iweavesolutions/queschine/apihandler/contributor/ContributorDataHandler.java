@@ -1,6 +1,7 @@
 package com.iweavesolutions.queschine.apihandler.contributor;
 
 import com.android.volley.Request;
+import com.google.gson.reflect.TypeToken;
 import com.iweavesolutions.queschine.QueschineApplication;
 import com.iweavesolutions.queschine.volley.DataHandler;
 import com.iweavesolutions.queschine.volley.request.VolleyRequest;
@@ -13,6 +14,8 @@ abstract public class ContributorDataHandler extends DataHandler<ContributorBO> 
     public void becomeContributor(String extensionURL, String authKey, ContributorPayload contributorPayload) {
         ContributorRequest contributorRequest = new ContributorRequest(Request.Method.POST, VolleyRequest.BASE_API_URL + extensionURL,
                 contributorPayload, authKey, listner, errorListner);
+        this.ctype = new TypeToken<ContributorBO>() {
+        }.getType();
         this.request = contributorRequest;
         QueschineApplication.addToRequestQueue(contributorRequest);
     }

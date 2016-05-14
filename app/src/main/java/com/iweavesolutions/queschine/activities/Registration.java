@@ -1,13 +1,11 @@
 package com.iweavesolutions.queschine.activities;
 
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ScrollView;
@@ -24,12 +22,9 @@ import com.iweavesolutions.queschine.utilities.Utils;
 /**
  * Created by bharath.simha on 06/05/16.
  */
-public class LogInActivity extends AppCompatActivity {
+public class Registration extends AppCompatActivity {
 
     private AppCompatEditText name, email, password, retypePassword, mobile;
-    private Button submit;
-    private TextView signIn;
-    private ScrollView scrollView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,18 +33,22 @@ public class LogInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
         onInit();
     }
+
     private void onInit() {
-        scrollView = (ScrollView)findViewById(R.id.scrollView);
-        KeyBoardUtil keyBoardUtil = new KeyBoardUtil(LogInActivity.this, scrollView);
+
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+        KeyBoardUtil keyBoardUtil = new KeyBoardUtil(Registration.this, scrollView);
         keyBoardUtil.enable();
         name = (AppCompatEditText) findViewById(R.id.nameRegistration);
         email = (AppCompatEditText) findViewById(R.id.emailRegistration);
         password = (AppCompatEditText) findViewById(R.id.passwordRegistration);
         retypePassword = (AppCompatEditText) findViewById(R.id.repasswordRegistration);
         mobile = (AppCompatEditText) findViewById(R.id.mobileRegistration);
+        TextView signIn = (TextView) findViewById(R.id.signIn);
 
-        submit = (Button) findViewById(R.id.submit);
+        Button submit = (Button) findViewById(R.id.submit);
 
+        assert submit != null;
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,10 +69,8 @@ public class LogInActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "re-password should not empty", Toast.LENGTH_LONG).show();
                 } else if (!passwordValue.equalsIgnoreCase(retypePasswordValue)) {
                     Toast.makeText(getApplicationContext(), "both passwords should match", Toast.LENGTH_LONG).show();
-                } else if (Utils.isNullOrEmpty(mobileValue)) {
-                    Toast.makeText(getApplicationContext(), "mobile number should not empty", Toast.LENGTH_LONG).show();
-                } else if (mobileValue.length() != 10) {
-                    Toast.makeText(getApplicationContext(), "mobile number length should be 10", Toast.LENGTH_LONG).show();
+                } else if (Utils.isValidMobile(mobileValue)) {
+                    Toast.makeText(getApplicationContext(), "Enter a valid mobile number", Toast.LENGTH_LONG).show();
                 } else {
                     RegistrationPayload registrationPayload = new RegistrationPayload();
                     registrationPayload.setName(nameValue);
@@ -82,6 +79,14 @@ public class LogInActivity extends AppCompatActivity {
                     registrationPayload.setPhoneNumber(mobileValue);
                     onRegisterUser(registrationPayload);
                 }
+            }
+        });
+        assert signIn != null;
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Registration.this, LoginActivity.class));
+                finish();
             }
         });
     }

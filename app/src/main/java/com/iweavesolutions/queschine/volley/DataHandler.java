@@ -81,9 +81,9 @@ abstract public class DataHandler<T> {
                     resultReceived(response, false);
                 }
             };
-        } catch (AssertionError ex) {
-        } catch (IllegalStateException e2) {
-        } catch (Exception e) {
+        } catch (AssertionError ignored) {
+        } catch (IllegalStateException ignored) {
+        } catch (Exception ignored) {
         }
 
     }

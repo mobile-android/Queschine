@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.iweavesolutions.queschine.utilities.Utils;
@@ -28,7 +25,7 @@ public class SplashActivity extends Activity {
                 @Override
                 public void run() {
 
-                    startActivity(new Intent(getApplicationContext(), LogInActivity.class));
+                    startActivity(new Intent(getApplicationContext(), Registration.class));
                    /* overridePendingTransition(R.anim.slide_in_from_bottom,
                             R.anim.slide_out_to_top);*/
                     finish();
