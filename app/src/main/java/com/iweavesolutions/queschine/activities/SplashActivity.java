@@ -31,7 +31,7 @@ public class SplashActivity extends Activity {
                         finish();
                         return;
                     }
-                    if (!PreferenceManager.getManagerInstance().getIsLogin())
+                    if (!PreferenceManager.getManagerInstance().getIsLogin() && !PreferenceManager.getManagerInstance().getIsRegistered())
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     else if (!PreferenceManager.getManagerInstance().getIsMobileRegistered())
                         startActivity(new Intent(getApplicationContext(), OTPVerificationActivity.class));

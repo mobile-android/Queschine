@@ -1,6 +1,7 @@
 package com.iweavesolutions.queschine.volley.request;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -35,6 +36,7 @@ abstract public class VolleyRequest<T> extends Request<T> {
         this.classType = classType;
         headers = new HashMap<>();
         postParams = new HashMap<>();
+        setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     @Override
