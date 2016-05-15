@@ -16,7 +16,6 @@ abstract public class ContributorDataHandler extends DataHandler<ContributorBO> 
                 contributorPayload, authKey, listner, errorListner);
         this.ctype = new TypeToken<ContributorBO>() {
         }.getType();
-        this.request = contributorRequest;
         QueschineApplication.addToRequestQueue(contributorRequest);
     }
 }

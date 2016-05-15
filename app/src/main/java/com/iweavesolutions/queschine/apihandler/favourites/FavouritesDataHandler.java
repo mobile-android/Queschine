@@ -16,7 +16,6 @@ abstract public class FavouritesDataHandler extends DataHandler<FavouritesBO> {
                 authKey, favouritesPayload, listner, errorListner);
         this.ctype = new TypeToken<FavouritesBO>() {
         }.getType();
-        this.request = favouritesRequest;
         QueschineApplication.addToRequestQueue(favouritesRequest);
     }
 }

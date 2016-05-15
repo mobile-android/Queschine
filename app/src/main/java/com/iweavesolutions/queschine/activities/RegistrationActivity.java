@@ -2,6 +2,7 @@ package com.iweavesolutions.queschine.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
@@ -17,12 +18,13 @@ import com.iweavesolutions.queschine.apihandler.registration.RegistrationBO;
 import com.iweavesolutions.queschine.apihandler.registration.RegistrationDataHandler;
 import com.iweavesolutions.queschine.apihandler.registration.RegistrationPayload;
 import com.iweavesolutions.queschine.utilities.KeyBoardUtil;
+import com.iweavesolutions.queschine.utilities.PreferenceManager;
 import com.iweavesolutions.queschine.utilities.Utils;
 
 /**
  * Created by bharath.simha on 06/05/16.
  */
-public class Registration extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
     private AppCompatEditText name, email, password, retypePassword, mobile;
 
@@ -37,7 +39,7 @@ public class Registration extends AppCompatActivity {
     private void onInit() {
 
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-        KeyBoardUtil keyBoardUtil = new KeyBoardUtil(Registration.this, scrollView);
+        KeyBoardUtil keyBoardUtil = new KeyBoardUtil(RegistrationActivity.this, scrollView);
         keyBoardUtil.enable();
         name = (AppCompatEditText) findViewById(R.id.nameRegistration);
         email = (AppCompatEditText) findViewById(R.id.emailRegistration);
@@ -85,7 +87,7 @@ public class Registration extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Registration.this, LoginActivity.class));
+                startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                 finish();
             }
         });
@@ -95,8 +97,23 @@ public class Registration extends AppCompatActivity {
 
         RegistrationDataHandler registrationDataHandler = new RegistrationDataHandler() {
             @Override
-            public void resultReceived(RegistrationBO response, boolean fromDB) {
+            public void resultReceived(final RegistrationBO response, boolean fromDB) {
                 Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        PreferenceManager.getManagerInstance().setAccessToken(response.getData().getAccess_token());
+                        PreferenceManager.getManagerInstance().setRefreshToken(response.getData().getRefresh_token());
+                        PreferenceManager.getManagerInstance().setIsRegistered(true);
+                        if (PreferenceManager.getManagerInstance().getIsMobileRegistered()) {
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
+                        } else {
+                            startActivity(new Intent(getApplicationContext(), OTPVerificationActivity.class));
+                        }
+                    }
+                }, 3000);
             }
 
             @Override

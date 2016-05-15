@@ -11,8 +11,12 @@ public class PreferenceManager {
     private static PreferenceManager managerInstance = null;
     private SharedPreferences sharedPreferences;
 
-    static final String IS_REGISTERED = "is_registered";
-    static final String IS_LOGIN = "is_login";
+    final String IS_FIRST_LAUNCH = "is_first_launch";
+    final String IS_REGISTERED = "is_registered";
+    final String IS_LOGIN = "is_login";
+    final String ACCESS_TOKEN = "access_token";
+    final String REFRESH_TOKEN = "refresh_token";
+    final String IS_MOBILE_REGISTERED = "is_mobile_registered";
 
     public static PreferenceManager getManagerInstance() {
         if (managerInstance == null) {
@@ -28,6 +32,14 @@ public class PreferenceManager {
         this.sharedPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
     }
 
+    public Boolean getIsFirstLaunch() {
+        return this.sharedPreferences.getBoolean(IS_FIRST_LAUNCH, false);
+    }
+
+    public void setIsFirstLaunch(boolean isRegistered) {
+        this.sharedPreferences.edit().putBoolean(IS_FIRST_LAUNCH, isRegistered).apply();
+    }
+
     public Boolean getIsRegistered() {
         return this.sharedPreferences.getBoolean(IS_REGISTERED, false);
     }
@@ -36,12 +48,36 @@ public class PreferenceManager {
         this.sharedPreferences.edit().putBoolean(IS_REGISTERED, isRegistered).apply();
     }
 
+    public Boolean getIsMobileRegistered() {
+        return this.sharedPreferences.getBoolean(IS_MOBILE_REGISTERED, false);
+    }
+
+    public void setIsMobileRegistered(boolean isRegistered) {
+        this.sharedPreferences.edit().putBoolean(IS_MOBILE_REGISTERED, isRegistered).apply();
+    }
+
     public Boolean getIsLogin() {
         return this.sharedPreferences.getBoolean(IS_LOGIN, false);
     }
 
     public void setIsLogin(boolean isLogin) {
         this.sharedPreferences.edit().putBoolean(IS_LOGIN, isLogin).apply();
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.sharedPreferences.edit().putString(ACCESS_TOKEN, accessToken).apply();
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.sharedPreferences.edit().putString(REFRESH_TOKEN, refreshToken).apply();
+    }
+
+    public String getRefreshToken() {
+        return this.sharedPreferences.getString(REFRESH_TOKEN, null);
+    }
+
+    public String getAccessToken() {
+        return this.sharedPreferences.getString(ACCESS_TOKEN, null);
     }
 
 

@@ -18,7 +18,6 @@ abstract public class OTPValidateDataHandler extends DataHandler<OTPValidateBO> 
                 authKey, otpValidatePayload, listner, errorListner);
         this.ctype = new TypeToken<OTPValidateBO>() {
         }.getType();
-        this.request = otpValidateRequest;
         QueschineApplication.addToRequestQueue(otpValidateRequest);
     }
 }

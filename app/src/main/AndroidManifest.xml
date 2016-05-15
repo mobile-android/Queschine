@@ -27,11 +27,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.Registration"
+            android:name=".activities.RegistrationActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activities.OTPVerificationActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
     </application>
