@@ -1,5 +1,6 @@
 package com.iweavesolutions.queschine.apihandler.registration;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.google.gson.reflect.TypeToken;
 import com.iweavesolutions.queschine.QueschineApplication;
@@ -14,9 +15,12 @@ abstract public class RegistrationDataHandler extends DataHandler<RegistrationBO
     public void onRegisterUser(String extensionURL, RegistrationPayload registrationPayload) {
         RegistrationRequest registrationRequest = new RegistrationRequest(Request.Method.POST, VolleyRequest.BASE_API_URL + extensionURL,
                 registrationPayload, listner, errorListner);
-        this.request = registrationRequest;
         this.ctype = new TypeToken<RegistrationBO>() {
         }.getType();
+        registrationRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         QueschineApplication.addToRequestQueue(registrationRequest);
     }
 }

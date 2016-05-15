@@ -15,7 +15,6 @@ abstract public class BrandsDataHandler extends DataHandler<BrandsBO> {
         BrandsRequest brandsRequest = new BrandsRequest(Request.Method.GET, VolleyRequest.BASE_API_URL + extensionURL, authKey, listner, errorListner);
         this.ctype = new TypeToken<BrandsBO>() {
         }.getType();
-        this.request = brandsRequest;
         QueschineApplication.addToRequestQueue(brandsRequest);
     }
 }

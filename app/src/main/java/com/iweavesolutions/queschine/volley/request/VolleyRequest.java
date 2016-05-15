@@ -34,6 +34,7 @@ abstract public class VolleyRequest<T> extends Request<T> {
         this.listner = listener;
         this.classType = classType;
         headers = new HashMap<>();
+        postParams = new HashMap<>();
     }
 
     @Override

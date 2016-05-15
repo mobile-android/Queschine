@@ -1,5 +1,7 @@
 package com.iweavesolutions.queschine.apihandler.otp.request;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 import com.google.gson.reflect.TypeToken;
 import com.iweavesolutions.queschine.volley.request.VolleyRequest;
@@ -12,6 +14,11 @@ public class OTPRequest extends VolleyRequest<OTPRequestBO> {
         super(method, url, new TypeToken<OTPRequestBO>() {
         }.getType(), listener, errorListener);
         addHeader("Application-Authorization", "Bearer " + header);
-        addPostParams("reason", "1");
+        Log.d("Authorization", "Bearer " + header);
+    }
+
+    @Override
+    public String getBodyContentType() {
+        return "application/x-www-form-urlencoded";
     }
 }

@@ -20,6 +20,7 @@ public class OTPValidateRequest extends VolleyRequest<OTPValidateBO> {
         }.getType(), listener, errorListener);
         this.otpValidatePayload = otpValidatePayload;
         addHeader("Application-Authorization", "Bearer " + header);
+        Log.d("Authorization", "Bearer " + header);
     }
 
     @Override

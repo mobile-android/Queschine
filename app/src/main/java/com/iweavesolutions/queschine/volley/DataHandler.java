@@ -1,19 +1,16 @@
 package com.iweavesolutions.queschine.volley;
 
 import com.android.volley.NoConnectionError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.RequestFuture;
 import com.google.gson.reflect.TypeToken;
 import com.iweavesolutions.queschine.QueschineApplication;
 import com.iweavesolutions.queschine.utilities.QSCNLogger;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by bharath.simha on 05/15/16.
@@ -23,8 +20,6 @@ abstract public class DataHandler<T> {
     RequestQueue.RequestFilter requestFilter;
     protected Response.ErrorListener errorListner;
     protected Response.Listener<T> listner;
-
-    protected Request<T> request;
 
     public Type ctype;
 
@@ -48,24 +43,22 @@ abstract public class DataHandler<T> {
                             Reader jsonReader = ResponseUtils.getJsonReader(error.networkResponse);
                             T responseObject = null;
                             try {
-                                if (ctype != null) {
+                                if (ctype != null && error.networkResponse.statusCode != 401) {
                                     responseObject = QueschineApplication.getGsonInstance().
                                             fromJson(jsonReader, ctype);
-
+                                    if (responseObject != null) {
+                                        errorReceived(responseObject);
+                                    }
                                 } else {
                                     responseObject = QueschineApplication.getGsonInstance().
                                             fromJson(jsonReader, new TypeToken<Object>() {
                                             }.getType());
+                                    if (responseObject != null) {
+                                        errorReceived("Some error Occurred, please try again", responseObject);
+                                    }
                                 }
 
                             } catch (AssertionError | IllegalStateException ignored) {
-                            }
-                            if (responseObject != null) {
-                            /*This method is being called only by V3 APIs which expect error resonse code with statusCode 400 not for older api calls in V2*/
-                                //TODO if "com.google.gson.internal.LinkedTreeMap cannot be cast to" exception is coming then you need to satisfy ctype variable in your data handler.
-                                errorReceived(responseObject);
-                            } else {
-                                errorReceived(999, -1, "Oops, something went wrong!");
                             }
                         }
                     } else {
@@ -105,30 +98,9 @@ abstract public class DataHandler<T> {
         //nothing to do as of now...
     }
 
-    /*This method is being called only by V3 APIs which expect error resonse code with statusCode 400 not for older api calls in V2*/
-    public void errorReceived(int responseCode, int errorCode, String errorMessage, T response) {
-        //for v3
+    public void errorReceived(String message, Object response) {
         //nothing to do as of now...
-//TODO if "com.google.gson.internal.LinkedTreeMap cannot be cast to" exception is coming then you need to satisfy ctype variable in your data handler.
     }
 
-    private T doBlockingCall() {
-        if (request == null) {
-            return null;
-        }
-
-        RequestFuture<T> future = RequestFuture.newFuture();
-        QueschineApplication.addToRequestQueue(request);
-        try {
-            T response = future.get(); // this will block
-            return response;
-        } catch (InterruptedException e) {
-            // exception handling
-        } catch (ExecutionException e) {
-            // exception handling
-        }
-
-        return null;
-    }
 
 }

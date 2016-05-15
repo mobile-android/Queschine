@@ -2,6 +2,7 @@ package com.iweavesolutions.queschine.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
@@ -17,6 +18,7 @@ import com.iweavesolutions.queschine.apihandler.login.LogInBO;
 import com.iweavesolutions.queschine.apihandler.login.LogInDataHandler;
 import com.iweavesolutions.queschine.apihandler.login.LogInPayload;
 import com.iweavesolutions.queschine.utilities.KeyBoardUtil;
+import com.iweavesolutions.queschine.utilities.PreferenceManager;
 import com.iweavesolutions.queschine.utilities.Utils;
 
 /**
@@ -72,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, Registration.class));
+                startActivity(new Intent(LoginActivity.this, RegistrationActivity.class));
                 finish();
             }
         });
@@ -89,9 +91,23 @@ public class LoginActivity extends AppCompatActivity {
     private void onLoginUser(LogInPayload logInPayload) {
         LogInDataHandler logInDataHandler = new LogInDataHandler() {
             @Override
-            public void resultReceived(LogInBO response, boolean fromDB) {
+            public void resultReceived(final LogInBO response, boolean fromDB) {
                 Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
 
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        PreferenceManager.getManagerInstance().setAccessToken(response.getData().getAccess_token());
+                        PreferenceManager.getManagerInstance().setRefreshToken(response.getData().getRefresh_token());
+                        PreferenceManager.getManagerInstance().setIsLogin(true);
+                        if (PreferenceManager.getManagerInstance().getIsMobileRegistered()) {
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
+                        } else {
+                            startActivity(new Intent(getApplicationContext(), OTPVerificationActivity.class));
+                        }
+                    }
+                }, 3000);
             }
 
             @Override

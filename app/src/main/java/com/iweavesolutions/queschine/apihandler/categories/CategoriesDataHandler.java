@@ -15,7 +15,6 @@ abstract public class CategoriesDataHandler extends DataHandler<CategoriesBO> {
         CategoriesRequest categoriesRequest = new CategoriesRequest(Request.Method.GET, VolleyRequest.BASE_API_URL, authKey, listner, errorListner);
         this.ctype = new TypeToken<CategoriesBO>() {
         }.getType();
-        this.request = categoriesRequest;
         QueschineApplication.addToRequestQueue(categoriesRequest);
     }
 }

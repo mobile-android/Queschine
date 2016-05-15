@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.iweavesolutions.queschine.utilities.PreferenceManager;
 import com.iweavesolutions.queschine.utilities.Utils;
 
 /**
@@ -24,10 +25,19 @@ public class SplashActivity extends Activity {
 
                 @Override
                 public void run() {
+                    if (!PreferenceManager.getManagerInstance().getIsFirstLaunch()) {
+                        startActivity(new Intent(getApplicationContext(), RegistrationActivity.class));
+                        PreferenceManager.getManagerInstance().setIsFirstLaunch(true);
+                        finish();
+                        return;
+                    }
+                    if (!PreferenceManager.getManagerInstance().getIsLogin())
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    else if (!PreferenceManager.getManagerInstance().getIsMobileRegistered())
+                        startActivity(new Intent(getApplicationContext(), OTPVerificationActivity.class));
+                    else
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
-                    startActivity(new Intent(getApplicationContext(), Registration.class));
-                   /* overridePendingTransition(R.anim.slide_in_from_bottom,
-                            R.anim.slide_out_to_top);*/
                     finish();
 
                 }

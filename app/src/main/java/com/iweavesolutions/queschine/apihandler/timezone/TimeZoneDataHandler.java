@@ -12,7 +12,6 @@ abstract public class TimeZoneDataHandler extends DataHandler<Object> {
 
     public void onGetTimeZone() {
         TimeZoneRequest timeZoneRequest = new TimeZoneRequest(Request.Method.GET, VolleyRequest.TIMEZONE_API, listner, errorListner);
-        this.request = timeZoneRequest;
         QueschineApplication.addToRequestQueue(timeZoneRequest);
     }
 }
