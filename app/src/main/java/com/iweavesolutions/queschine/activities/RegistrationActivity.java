@@ -17,6 +17,7 @@ import com.iweavesolutions.queschine.R;
 import com.iweavesolutions.queschine.apihandler.registration.RegistrationBO;
 import com.iweavesolutions.queschine.apihandler.registration.RegistrationDataHandler;
 import com.iweavesolutions.queschine.apihandler.registration.RegistrationPayload;
+import com.iweavesolutions.queschine.customviews.LoadingDialog;
 import com.iweavesolutions.queschine.utilities.KeyBoardUtil;
 import com.iweavesolutions.queschine.utilities.PreferenceManager;
 import com.iweavesolutions.queschine.utilities.Utils;
@@ -27,6 +28,7 @@ import com.iweavesolutions.queschine.utilities.Utils;
 public class RegistrationActivity extends AppCompatActivity {
 
     private AppCompatEditText name, email, password, retypePassword, mobile;
+    protected LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +76,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 } else if (Utils.isValidMobile(mobileValue)) {
                     Toast.makeText(getApplicationContext(), "Enter a valid mobile number", Toast.LENGTH_LONG).show();
                 } else {
+                    loadingDialog = new LoadingDialog(RegistrationActivity.this);
+                    loadingDialog.show();
                     RegistrationPayload registrationPayload = new RegistrationPayload();
                     registrationPayload.setName(nameValue);
                     registrationPayload.setEmailId(emailValue);
@@ -99,6 +103,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void resultReceived(final RegistrationBO response, boolean fromDB) {
                 Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                loadingDialog.cancel();
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -113,16 +118,19 @@ public class RegistrationActivity extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(), OTPVerificationActivity.class));
                         }
                     }
-                }, 3000);
+                }, 500);
             }
 
             @Override
             public void errorReceived(RegistrationBO response) {
+                loadingDialog.cancel();
                 Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void errorReceived(String message, Object response) {
+                loadingDialog.cancel();
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
         };
         registrationDataHandler.onRegisterUser("users", registrationPayload);

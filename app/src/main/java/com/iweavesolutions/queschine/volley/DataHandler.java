@@ -20,7 +20,6 @@ abstract public class DataHandler<T> {
     RequestQueue.RequestFilter requestFilter;
     protected Response.ErrorListener errorListner;
     protected Response.Listener<T> listner;
-
     public Type ctype;
 
     public DataHandler() {
