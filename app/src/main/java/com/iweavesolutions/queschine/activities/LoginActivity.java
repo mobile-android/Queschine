@@ -17,6 +17,7 @@ import com.iweavesolutions.queschine.R;
 import com.iweavesolutions.queschine.apihandler.login.LogInBO;
 import com.iweavesolutions.queschine.apihandler.login.LogInDataHandler;
 import com.iweavesolutions.queschine.apihandler.login.LogInPayload;
+import com.iweavesolutions.queschine.customviews.LoadingDialog;
 import com.iweavesolutions.queschine.utilities.KeyBoardUtil;
 import com.iweavesolutions.queschine.utilities.PreferenceManager;
 import com.iweavesolutions.queschine.utilities.Utils;
@@ -27,6 +28,7 @@ import com.iweavesolutions.queschine.utilities.Utils;
 public class LoginActivity extends AppCompatActivity {
 
     private AppCompatEditText email, password, mobileNum;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +83,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onLogIn(String emailValue, String passwordValue, String mobile) {
+        loadingDialog = new LoadingDialog(LoginActivity.this);
+        loadingDialog.show();
         LogInPayload logInPayload = new LogInPayload();
         logInPayload.setEmailId(emailValue);
         logInPayload.setPassword(passwordValue);
@@ -93,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void resultReceived(final LogInBO response, boolean fromDB) {
                 Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
-
+                loadingDialog.cancel();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -107,16 +111,19 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(), OTPVerificationActivity.class));
                         }
                     }
-                }, 3000);
+                }, 500);
             }
 
             @Override
             public void errorReceived(LogInBO errorResponse) {
+                loadingDialog.cancel();
                 Toast.makeText(getApplicationContext(), errorResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void errorReceived(String message, Object response) {
+                loadingDialog.cancel();
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
         };
 
