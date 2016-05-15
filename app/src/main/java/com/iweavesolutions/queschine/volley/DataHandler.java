@@ -88,19 +88,15 @@ abstract public class DataHandler<T> {
         }
     }
 
-    abstract public void resultReceived(T response, boolean fromDB);
 
     public void errorReceived(int responseCode, int errorCode, String errorMessage) {
         //nothing to do as of now...
     }
 
-    public void errorReceived(T response) {
-        //nothing to do as of now...
-    }
+    abstract public void resultReceived(T response, boolean fromDB);
 
-    public void errorReceived(String message, Object response) {
-        //nothing to do as of now...
-    }
+    abstract public void errorReceived(T response);
 
+    abstract public void errorReceived(String message, Object response);
 
 }

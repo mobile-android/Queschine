@@ -119,7 +119,10 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void errorReceived(RegistrationBO response) {
                 Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void errorReceived(String message, Object response) {
             }
         };
         registrationDataHandler.onRegisterUser("users", registrationPayload);

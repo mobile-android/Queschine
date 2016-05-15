@@ -114,6 +114,10 @@ public class LoginActivity extends AppCompatActivity {
             public void errorReceived(LogInBO errorResponse) {
                 Toast.makeText(getApplicationContext(), errorResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
+
+            @Override
+            public void errorReceived(String message, Object response) {
+            }
         };
 
         logInDataHandler.onAuthenticateUser("login", logInPayload);
