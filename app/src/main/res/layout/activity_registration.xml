@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/scrollView"
-    android:background="@drawable/generic_bg">
+    android:background="@color/colorPrimary">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -14,9 +14,10 @@
             android:id="@+id/labelSignup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="SIGN UP WITH US"
+            android:text="@string/sign_up_with_us"
             android:textColor="@android:color/white"
             android:textSize="60sp" />
 
@@ -24,102 +25,113 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="20dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_corner_generic_fragment"
             android:orientation="vertical"
             android:padding="10dp">
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/nameRegistration"
+            <!-- <com.facebook.login.widget.LoginButton
+                 android:id="@+id/login_button"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_marginTop="10dp" />
+
+             <ImageView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="5dp"
+                 android:background="@android:color/transparent"
+                 android:src="@drawable/or" />-->
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/rounded_corner_generic_fragment"
-                android:hint="Enter Your Name"
-                android:inputType="textPersonName"
-                android:padding="10dp"
                 android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColorHint="@android:color/white">
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/emailRegistration"
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/nameRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_drawable"
+                    android:hint="Enter Your Name"
+                    android:inputType="textPersonName"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/rounded_corner_generic_fragment"
-                android:hint="Enter Your Email Id"
-                android:inputType="textEmailAddress"
-                android:padding="10dp"
                 android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColorHint="@android:color/white">
 
-            <android.support.v7.widget.AppCompatEditText
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/emailRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_drawable"
+                    android:hint="Enter Your Email Id"
+                    android:inputType="textEmailAddress"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <com.iweavesolutions.queschine.customviews.PasswordEditText
                 android:id="@+id/passwordRegistration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@drawable/rounded_corner_generic_fragment"
+                android:background="@drawable/edit_text_drawable"
+                android:gravity="center_vertical"
                 android:hint="Enter Your Password"
                 android:inputType="textPassword"
-                android:padding="10dp"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:typeface="sans" />
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/repasswordRegistration"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@drawable/rounded_corner_generic_fragment"
-                android:hint="Re Type Your Password"
-                android:inputType="textPassword"
-                android:padding="10dp"
                 android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColorHint="@android:color/white">
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/mobileRegistration"
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/mobileRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_drawable"
+                    android:hint="Enter Your Mobile Number"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <com.iweavesolutions.queschine.customviews.CustomButton
+                android:id="@+id/submit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="38sp"
                 android:layout_margin="5dp"
-                android:background="@drawable/rounded_corner_generic_fragment"
-                android:hint="Enter Your Mobile Number"
-                android:inputType="number"
-                android:padding="10dp"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:text="Sign Up" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/signIn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/login"
-                    android:id="@+id/signIn"
-                    android:textColor="@android:color/white" />
-
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/submit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/rounded_corner_generic_fragment"
-                    android:paddingEnd="5dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingStart="5dp"
-                    android:text="Submit"
-                    android:textColor="@android:color/white" />
-
-            </RelativeLayout>
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:text="@string/login"
+                android:textColor="@android:color/white" />
 
         </LinearLayout>
 

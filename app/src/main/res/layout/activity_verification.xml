@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/generic_bg"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <com.iweavesolutions.queschine.customviews.CustomTextView
@@ -15,35 +15,38 @@
         android:textColor="@android:color/white"
         android:textSize="40sp" />
 
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/labelLogin"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/otp_label"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/label"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_margin="10dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_corner_generic_fragment"
         android:orientation="vertical"
         android:padding="20dp">
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/skip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginBottom="10dp"
-            android:text="@string/skip"
-            android:textColor="@android:color/white"
-            android:textSize="25sp" />
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/otpValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_corner_generic_fragment"
-            android:hint="Enter Your OTP here"
+            android:background="@drawable/edit_text_drawable"
+            android:hint="Enter Your OTP"
             android:inputType="number"
-            android:padding="10dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white" />
 
@@ -51,7 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ProgressBar
                 android:id="@+id/otp_progress"
@@ -70,30 +74,25 @@
 
         </LinearLayout>
 
-        <RelativeLayout
+
+        <com.iweavesolutions.queschine.customviews.CustomButton
+            android:id="@+id/login"
             android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:text="Submit OTP"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/resendOTP"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:text="@string/resend"
+            android:textColor="@android:color/white" />
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/login"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/rounded_corner_generic_fragment"
-                android:text="Submit"
-                android:textColor="@android:color/white" />
-
-
-        </RelativeLayout>
 
     </LinearLayout>
 

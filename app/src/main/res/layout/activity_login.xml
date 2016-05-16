@@ -1,130 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollViewLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/generic_bg">
+    android:background="@color/colorPrimary">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.iweavesolutions.queschine.customviews.CustomTextView
+        android:id="@+id/labelLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/login_with_us"
+        android:textColor="@android:color/white"
+        android:textSize="60sp" />
 
-        <com.iweavesolutions.queschine.customviews.CustomTextView
-            android:id="@+id/labelLogin"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_corner_generic_fragment"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="Login With Queschine"
+            android:layout_margin="10dp"
             android:textColor="@android:color/white"
-            android:textSize="40sp" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:textColorHint="@color/hintActivated">
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/emailLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/rounded_corner_generic_fragment"
-                android:hint="Enter Your Email Id"
+                android:layout_gravity="center"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/edit_text_drawable"
+                android:gravity="center_vertical"
+                android:hint="Enter Your Email Id/Mobile Number"
                 android:inputType="textEmailAddress"
-                android:padding="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:typeface="sans" />
+        </android.support.design.widget.TextInputLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="horizontal">
+        <com.iweavesolutions.queschine.customviews.PasswordEditText
+            android:id="@+id/passwordLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/edit_text_drawable"
+            android:gravity="center_vertical"
+            android:hint="Enter Your Password"
+            android:inputType="textPassword"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:typeface="sans" />
 
-                <TextView
-                    android:id="@+id/tvText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="OR"
-                    android:textColor="@android:color/white" />
+        <com.iweavesolutions.queschine.customviews.CustomButton
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="38sp"
+            android:layout_margin="5dp"
+            android:text="Sign In"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/tvText"
-                    android:background="@android:color/white" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/signUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal"
+            android:text="@string/signup"
+            android:textColor="@android:color/white" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/tvText"
-                    android:background="@android:color/white" />
-
-            </RelativeLayout>
-
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/mobileNum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/rounded_corner_generic_fragment"
-                android:hint="Enter Your Mobile Number"
-                android:inputType="number"
-                android:padding="10dp"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
-
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/passwordLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/rounded_corner_generic_fragment"
-                android:hint="Enter Your Password"
-                android:inputType="textPassword"
-                android:padding="10dp"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
-
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/login"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/rounded_corner_generic_fragment"
-                android:text="Submit"
-                android:textColor="@android:color/white" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/signUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:gravity="center_horizontal"
-                android:text="@string/signup"
-                android:textColor="@android:color/white" />
-
-
-        </LinearLayout>
 
     </LinearLayout>
 
-</ScrollView>
+</RelativeLayout>

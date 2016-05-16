@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iweavesolutions.queschine.R;
@@ -24,9 +22,7 @@ import com.iweavesolutions.queschine.utilities.PreferenceManager;
  */
 public class OTPVerificationActivity extends AppCompatActivity {
 
-    protected TextView otpStatus, skip;
     protected EditText otpValue;
-    protected ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,9 +34,10 @@ public class OTPVerificationActivity extends AppCompatActivity {
 
     private void onInit() {
         otpValue = (EditText) findViewById(R.id.otpValue);
-        otpStatus = (TextView) findViewById(R.id.otpStatus);
-        skip = (TextView) findViewById(R.id.skip);
-        progressBar = (ProgressBar) findViewById(R.id.otp_progress);
+
+        assert otpValue != null;
+        otpValue.clearFocus();
+        otpValue.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         OTPRequestDataHandler otpRequestDataHandler = new OTPRequestDataHandler() {
             @Override
@@ -51,7 +48,6 @@ public class OTPVerificationActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         otpValue.setText(response.getData());
-                        otpStatus.setText("Please wait while we are validating your OTP");
                         onVerifyOTPValue(response.getData());
                     }
                 }, 3000);
@@ -90,8 +86,6 @@ public class OTPVerificationActivity extends AppCompatActivity {
         OTPValidateDataHandler otpValidateDataHandler = new OTPValidateDataHandler() {
             @Override
             public void resultReceived(final OTPValidateBO response, boolean fromDB) {
-                progressBar.setVisibility(View.GONE);
-                otpStatus.setText(response.getMessage());
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

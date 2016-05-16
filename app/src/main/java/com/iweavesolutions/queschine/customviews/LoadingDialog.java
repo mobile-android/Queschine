@@ -9,24 +9,25 @@ import android.content.Context;
 public class LoadingDialog extends ProgressDialog {
     public LoadingDialog(Context context) {
         super(context);
-        onInit(context);
+        onInit();
     }
 
     public LoadingDialog(Context context, int theme) {
         super(context, theme);
-        onInit(context);
+        onInit();
     }
 
-    private void onInit(Context context) {
-        setMessage("Loading...");
+    private void onInit() {
+        setMessage("Please Wait...");
         setCancelable(false);
+        setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }
 
     public void setLoadingDialogMessage(String message) {
         setMessage(message);
     }
 
-    public void setLoadingDialogCanceleable(boolean isCanceleable) {
-        setCancelable(isCanceleable);
+    public void setLoadingDialogCancelable(boolean isCancelable) {
+        setCancelable(isCancelable);
     }
 }
