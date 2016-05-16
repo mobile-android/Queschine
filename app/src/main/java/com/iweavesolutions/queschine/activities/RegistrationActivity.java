@@ -18,6 +18,7 @@ import com.iweavesolutions.queschine.apihandler.registration.RegistrationBO;
 import com.iweavesolutions.queschine.apihandler.registration.RegistrationDataHandler;
 import com.iweavesolutions.queschine.apihandler.registration.RegistrationPayload;
 import com.iweavesolutions.queschine.customviews.LoadingDialog;
+import com.iweavesolutions.queschine.customviews.PasswordEditText;
 import com.iweavesolutions.queschine.utilities.KeyBoardUtil;
 import com.iweavesolutions.queschine.utilities.PreferenceManager;
 import com.iweavesolutions.queschine.utilities.Utils;
@@ -27,8 +28,9 @@ import com.iweavesolutions.queschine.utilities.Utils;
  */
 public class RegistrationActivity extends AppCompatActivity {
 
-    private AppCompatEditText name, email, password, retypePassword, mobile;
+    private AppCompatEditText name, email, mobile;
     protected LoadingDialog loadingDialog;
+    private PasswordEditText passwordEditText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,22 +47,27 @@ public class RegistrationActivity extends AppCompatActivity {
         keyBoardUtil.enable();
         name = (AppCompatEditText) findViewById(R.id.nameRegistration);
         email = (AppCompatEditText) findViewById(R.id.emailRegistration);
-        password = (AppCompatEditText) findViewById(R.id.passwordRegistration);
-        retypePassword = (AppCompatEditText) findViewById(R.id.repasswordRegistration);
+        passwordEditText = (PasswordEditText) findViewById(R.id.passwordRegistration);
+        assert passwordEditText != null;
+        passwordEditText.hideForgot();
         mobile = (AppCompatEditText) findViewById(R.id.mobileRegistration);
         TextView signIn = (TextView) findViewById(R.id.signIn);
 
         Button submit = (Button) findViewById(R.id.submit);
 
+        name.clearFocus();
+        email.clearFocus();
+        passwordEditText.getEditText().clearFocus();
+        mobile.clearFocus();
+
         assert submit != null;
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nameValue, emailValue, passwordValue, retypePasswordValue, mobileValue;
+                String nameValue, emailValue, passwordValue, mobileValue;
                 nameValue = name.getText().toString();
                 emailValue = email.getText().toString();
-                passwordValue = password.getText().toString();
-                retypePasswordValue = retypePassword.getText().toString();
+                passwordValue = passwordEditText.getText();
                 mobileValue = mobile.getText().toString();
 
                 if (Utils.isNullOrEmpty(nameValue)) {
@@ -68,15 +75,11 @@ public class RegistrationActivity extends AppCompatActivity {
                 } else if (!Utils.isValidEmail(emailValue)) {
                     Toast.makeText(getApplicationContext(), "Not a valid Email", Toast.LENGTH_LONG).show();
                 } else if (Utils.isNullOrEmpty(passwordValue)) {
-                    Toast.makeText(getApplicationContext(), "password should not empty", Toast.LENGTH_LONG).show();
-                } else if (Utils.isNullOrEmpty(retypePasswordValue)) {
-                    Toast.makeText(getApplicationContext(), "re-password should not empty", Toast.LENGTH_LONG).show();
-                } else if (!passwordValue.equalsIgnoreCase(retypePasswordValue)) {
-                    Toast.makeText(getApplicationContext(), "both passwords should match", Toast.LENGTH_LONG).show();
-                } else if (Utils.isValidMobile(mobileValue)) {
+                    Toast.makeText(getApplicationContext(), "Password should not empty", Toast.LENGTH_LONG).show();
+                } else if (!Utils.isValidMobile(mobileValue)) {
                     Toast.makeText(getApplicationContext(), "Enter a valid mobile number", Toast.LENGTH_LONG).show();
                 } else {
-                    loadingDialog = new LoadingDialog(RegistrationActivity.this);
+                    loadingDialog = new LoadingDialog(RegistrationActivity.this, R.style.CustomDialogStyle);
                     loadingDialog.show();
                     RegistrationPayload registrationPayload = new RegistrationPayload();
                     registrationPayload.setName(nameValue);
@@ -112,8 +115,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         PreferenceManager.getManagerInstance().setRefreshToken(response.getData().getRefresh_token());
                         PreferenceManager.getManagerInstance().setIsRegistered(true);
                         if (PreferenceManager.getManagerInstance().getIsMobileRegistered()) {
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                         } else {
                             startActivity(new Intent(getApplicationContext(), OTPVerificationActivity.class));
                         }

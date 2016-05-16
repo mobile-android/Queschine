@@ -6,10 +6,14 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.ScrollView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +22,7 @@ import com.iweavesolutions.queschine.apihandler.login.LogInBO;
 import com.iweavesolutions.queschine.apihandler.login.LogInDataHandler;
 import com.iweavesolutions.queschine.apihandler.login.LogInPayload;
 import com.iweavesolutions.queschine.customviews.LoadingDialog;
-import com.iweavesolutions.queschine.utilities.KeyBoardUtil;
+import com.iweavesolutions.queschine.customviews.PasswordEditText;
 import com.iweavesolutions.queschine.utilities.PreferenceManager;
 import com.iweavesolutions.queschine.utilities.Utils;
 
@@ -27,8 +31,10 @@ import com.iweavesolutions.queschine.utilities.Utils;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private AppCompatEditText email, password, mobileNum;
+    private AppCompatEditText logInId;
+    private PasswordEditText password;
     LoadingDialog loadingDialog;
+    boolean isOnlyNumeric = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,35 +45,41 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initLogin() {
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollViewLogin);
-        KeyBoardUtil keyBoardUtil = new KeyBoardUtil(LoginActivity.this, scrollView);
-        keyBoardUtil.enable();
-        email = (AppCompatEditText) findViewById(R.id.emailLogin);
-        password = (AppCompatEditText) findViewById(R.id.passwordLogin);
-        mobileNum = (AppCompatEditText) findViewById(R.id.mobileNum);
+        logInId = (AppCompatEditText) findViewById(R.id.emailLogin);
+        password = (PasswordEditText) findViewById(R.id.passwordLogin);
         Button login = (Button) findViewById(R.id.login);
         TextView signUp = (TextView) findViewById(R.id.signUp);
+
+        logInId.clearFocus();
+        password.getEditText().clearFocus();
+
+        password.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        addTextChangeListener(logInId);
 
         assert login != null;
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailValue = email.getText().toString();
-                String passwordValue = password.getText().toString();
-                String mobile = mobileNum.getText().toString();
+                String logInValue = logInId.getText().toString();
+                String passwordValue = password.getText();
 
-                if (Utils.isNullOrEmpty(emailValue) && Utils.isNullOrEmpty(mobile)) {
-                    Toast.makeText(getApplicationContext(), "Enter either Emial Id/Mobile Number", Toast.LENGTH_SHORT).show();
+                if (Utils.isNullOrEmpty(logInValue)) {
+                    Toast.makeText(getApplicationContext(), "Enter either Email Id/Mobile Number", Toast.LENGTH_SHORT).show();
                 } else if (Utils.isNullOrEmpty(passwordValue)) {
                     Toast.makeText(getApplicationContext(), "Password cannot be Empty", Toast.LENGTH_SHORT).show();
-                } else if (!Utils.isNullOrEmpty(emailValue)) {
-                    if (!Utils.isValidEmail(emailValue))
-                        Toast.makeText(getApplicationContext(), "Not a valid email", Toast.LENGTH_SHORT).show();
-                    else onLogIn(emailValue, passwordValue, mobile);
-                } else if (!Utils.isNullOrEmpty(mobile)) {
-                    if (!Utils.isValidMobile(mobile))
-                        Toast.makeText(getApplicationContext(), "Not a valid mobile", Toast.LENGTH_SHORT).show();
-                    else onLogIn(emailValue, passwordValue, mobile);
+                } else {
+                    if (isOnlyNumeric) {
+                        if (Utils.isValidMobile(logInValue))
+                            onLogIn("", passwordValue, logInValue);
+                        else
+                            Toast.makeText(getApplicationContext(), "Not a Valid mobile", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (Utils.isValidEmail(logInValue))
+                            onLogIn(logInValue, passwordValue, "");
+                        else
+                            Toast.makeText(getApplicationContext(), "Not a Valid Email", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -82,8 +94,36 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    protected void addTextChangeListener(final EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (!TextUtils.isEmpty(s)) {
+                    isOnlyNumeric = isOnlyDigits(s.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    public boolean isOnlyDigits(String str) {
+        try {
+            return str.matches(Utils.MOBILE_EXPRESSION);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     private void onLogIn(String emailValue, String passwordValue, String mobile) {
-        loadingDialog = new LoadingDialog(LoginActivity.this);
+        loadingDialog = new LoadingDialog(LoginActivity.this, R.style.CustomDialogStyle);
         loadingDialog.show();
         LogInPayload logInPayload = new LogInPayload();
         logInPayload.setEmailId(emailValue);
@@ -97,6 +137,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void resultReceived(final LogInBO response, boolean fromDB) {
                 Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                PreferenceManager.getManagerInstance().setIsLogin(true);
                 loadingDialog.cancel();
                 new Handler().postDelayed(new Runnable() {
                     @Override

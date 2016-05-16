@@ -31,6 +31,8 @@ import java.util.regex.Pattern;
  */
 public class Utils {
 
+    public static final String MOBILE_EXPRESSION = "^[0-9]+$";
+
     public static void setBackground(View view, int resourceId) {
         setBackground(view, view.getContext().getResources().getDrawable(resourceId));
     }
@@ -260,10 +262,11 @@ public class Utils {
         if (isNullOrEmpty(mobile)) {
             return false;
         } else {
-            Pattern pattern = Pattern.compile("^\\d{10}$");
-            Matcher matcher = pattern.matcher(mobile);
-            return matcher.find();
-
+            if (mobile.length() < 6 || mobile.length() > 13) {
+                return false;
+            } else {
+                return android.util.Patterns.PHONE.matcher(mobile).matches();
+            }
         }
     }
 

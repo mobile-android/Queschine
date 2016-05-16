@@ -3,4 +3,6 @@
     <color name="colorPrimary">#474747</color>
     <color name="colorPrimaryDark">#3B3B3B</color>
     <color name="colorAccent">#FFFFFF</color>
+    <color name="sign_up_bg">#EBEBEB</color>
+    <color name="hintActivated">#e4e4e4</color>
 </resources>

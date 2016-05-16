@@ -7,13 +7,14 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.google.gson.reflect.TypeToken;
 import com.iweavesolutions.queschine.QueschineApplication;
+import com.iweavesolutions.queschine.apihandler.otp.request.OTPRequestBO;
 import com.iweavesolutions.queschine.utilities.QSCNLogger;
 
 import java.io.Reader;
 import java.lang.reflect.Type;
 
 /**
- * Created by bharath.simha on 05/15/16.
+ * Created by bharath.simha on 05/05/16.
  */
 abstract public class DataHandler<T> {
 
@@ -40,13 +41,24 @@ abstract public class DataHandler<T> {
                             errorReceived(204, -1, "");
                         } else {
                             Reader jsonReader = ResponseUtils.getJsonReader(error.networkResponse);
-                            T responseObject = null;
+                            T responseObject;
                             try {
-                                if (ctype != null && error.networkResponse.statusCode != 401) {
-                                    responseObject = QueschineApplication.getGsonInstance().
-                                            fromJson(jsonReader, ctype);
-                                    if (responseObject != null) {
-                                        errorReceived(responseObject);
+                                if (ctype != null) {
+                                    if (error.networkResponse.statusCode == 401) {
+                                        if (ctype.toString().substring(6, ctype.toString().length()).equalsIgnoreCase(OTPRequestBO.class.getCanonicalName())) {
+                                            responseObject = QueschineApplication.getGsonInstance().
+                                                    fromJson(jsonReader, new TypeToken<Object>() {
+                                                    }.getType());
+                                            if (responseObject != null) {
+                                                errorReceived("Some error Occurred, please try again", responseObject);
+                                            }
+                                        }
+                                    } else {
+                                        responseObject = QueschineApplication.getGsonInstance().
+                                                fromJson(jsonReader, ctype);
+                                        if (responseObject != null) {
+                                            errorReceived(responseObject);
+                                        }
                                     }
                                 } else {
                                     responseObject = QueschineApplication.getGsonInstance().

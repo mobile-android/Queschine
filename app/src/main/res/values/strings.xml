@@ -4,10 +4,16 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="login"><u>Already a User? Sign In !!</u></string>
+    <string name="login"><u>Already a User?</u></string>
     <string name="signup"><u>New to Queschine? Sign Up here!</u></string>
     <string name="skip"><u>Skip</u></string>
 
-
     <string name="action_settings">Settings</string>
+    <string name="sign_up_with_us"><u>SIGN UP WITH US</u></string>
+    <string name="login_with_us"><u>LOGIN WITH US</u></string>
+    <string name="resend"><u>Have not yet received? Resend?</u></string>
+
+    <string name="otp_label">Thanks for registering with us. We have\nsent a One Time Password for your\nmobile number for our internal security\nreasons. Please kindly co operate\nand enter OTP to proceed further.</string>
+
+
 </resources>
