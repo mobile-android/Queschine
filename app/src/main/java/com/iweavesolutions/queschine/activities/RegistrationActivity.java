@@ -31,6 +31,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private AppCompatEditText name, email, mobile;
     protected LoadingDialog loadingDialog;
     private PasswordEditText passwordEditText;
+    String nameValue;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class RegistrationActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nameValue, emailValue, passwordValue, mobileValue;
+                String emailValue, passwordValue, mobileValue;
                 nameValue = name.getText().toString();
                 emailValue = email.getText().toString();
                 passwordValue = passwordEditText.getText();
@@ -114,9 +115,10 @@ public class RegistrationActivity extends AppCompatActivity {
                         PreferenceManager.getManagerInstance().setAccessToken(response.getData().getAccess_token());
                         PreferenceManager.getManagerInstance().setRefreshToken(response.getData().getRefresh_token());
                         PreferenceManager.getManagerInstance().setIsRegistered(true);
+                        PreferenceManager.getManagerInstance().setUserName(nameValue);
                         if (PreferenceManager.getManagerInstance().getIsMobileRegistered()) {
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
                         } else {
                             startActivity(new Intent(getApplicationContext(), OTPVerificationActivity.class));
                         }

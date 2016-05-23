@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <com.iweavesolutions.queschine.customviews.CustomTextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="WELCOME"
+        android:textColor="@android:color/white"
+        android:textSize="40sp" />
+
+    <ImageView
+        android:id="@+id/contributorPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/com_facebook_profile_picture_blank_portrait" />
+
+    <com.iweavesolutions.queschine.customviews.CustomTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="Description.. Description, Description Description"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <com.iweavesolutions.queschine.customviews.CustomButton
+        android:id="@+id/contributor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Become A Contributor" />
+
+    <com.iweavesolutions.queschine.customviews.CustomTextView
+        android:id="@+id/contributorSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/skipButton"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>
