@@ -98,7 +98,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         PreferenceManager.getManagerInstance().setIsMobileRegistered(true);
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ContributorActivity.class));
                         finish();
                     }
                 }, 3000);

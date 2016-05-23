@@ -17,6 +17,8 @@ public class PreferenceManager {
     final String ACCESS_TOKEN = "access_token";
     final String REFRESH_TOKEN = "refresh_token";
     final String IS_MOBILE_REGISTERED = "is_mobile_registered";
+    final String NAME = "name";
+    final String PROFILE_PIC = "profile_pic";
 
     public static PreferenceManager getManagerInstance() {
         if (managerInstance == null) {
@@ -74,6 +76,22 @@ public class PreferenceManager {
 
     public String getRefreshToken() {
         return this.sharedPreferences.getString(REFRESH_TOKEN, null);
+    }
+
+    public void setUserName(String userName) {
+        this.sharedPreferences.edit().putString(NAME, userName).apply();
+    }
+
+    public String getUserName() {
+        return this.sharedPreferences.getString(NAME, null);
+    }
+
+    public void setProfilePic(String profilePicURL) {
+        this.sharedPreferences.edit().putString(PROFILE_PIC, profilePicURL).apply();
+    }
+
+    public String getProfilePic() {
+        return this.sharedPreferences.getString(PROFILE_PIC, null);
     }
 
     public String getAccessToken() {
