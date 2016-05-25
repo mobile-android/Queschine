@@ -1,5 +1,6 @@
 package com.iweavesolutions.queschine;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -13,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.facebook.FacebookSdk;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.iweavesolutions.queschine.utilities.PreferenceManager;
@@ -46,6 +48,9 @@ public class QueschineApplication extends Application {
         super.onCreate();
         PreferenceManager.getManagerInstance().initialize(getApplicationContext());
 
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        printKeyHash();
+
         QueschineApplication.context = getApplicationContext();
         NetworkMonitor.initialize(context);
 
@@ -71,11 +76,12 @@ public class QueschineApplication extends Application {
      */
     public void printKeyHash() {
         try {
-            PackageInfo info = getPackageManager().getPackageInfo("co.coderiver.facebooklogin_sample", PackageManager.GET_SIGNATURES);
+            @SuppressLint("PackageManagerGetSignatures") PackageInfo info = getPackageManager().getPackageInfo("com.iweavesolutions.queschine", PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                QSCNLogger.error("SHA : ", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                QSCNLogger.debug("FacebookSHA : ", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                PreferenceManager.getManagerInstance().setFacebookHash(Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

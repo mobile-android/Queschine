@@ -26,7 +26,6 @@ public class SplashActivity extends Activity {
                 @Override
                 public void run() {
                     if (!PreferenceManager.getManagerInstance().getIsFirstLaunch()) {
-                        startActivity(new Intent(getApplicationContext(), RegistrationActivity.class));
                         PreferenceManager.getManagerInstance().setIsFirstLaunch(true);
                         finish();
                         return;

@@ -19,6 +19,7 @@ public class PreferenceManager {
     final String IS_MOBILE_REGISTERED = "is_mobile_registered";
     final String NAME = "name";
     final String PROFILE_PIC = "profile_pic";
+    final String FACEBOOK_SHA = "facebook_sha";
 
     public static PreferenceManager getManagerInstance() {
         if (managerInstance == null) {
@@ -92,6 +93,14 @@ public class PreferenceManager {
 
     public String getProfilePic() {
         return this.sharedPreferences.getString(PROFILE_PIC, null);
+    }
+
+    public void setFacebookHash(String facebookSHA) {
+        this.sharedPreferences.edit().putString(FACEBOOK_SHA, facebookSHA).apply();
+    }
+
+    public String getFacebookHash() {
+        return this.sharedPreferences.getString(FACEBOOK_SHA, "Nothing as of now..");
     }
 
     public String getAccessToken() {
