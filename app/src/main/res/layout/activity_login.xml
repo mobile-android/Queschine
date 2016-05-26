@@ -84,7 +84,7 @@
             android:background="@android:color/transparent"
             android:src="@drawable/or" />
 
-        <com.facebook.login.widget.LoginButton
+        <com.iweavesolutions.queschine.customviews.QueschineFBButton
             android:id="@+id/fbLogin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -108,8 +108,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="5dp"
-        android:padding="5dp"
-        android:background="@drawable/rounded_corner_generic_fragment">
+        android:background="@drawable/rounded_corner_generic_fragment"
+        android:padding="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
